@@ -7,9 +7,9 @@
   <meta name="theme-color" content="#203c32">
   <title>Дом Чайной Жабы · Tea House — демонстрационный магазин</title>
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="shop.css">
+  <link rel="stylesheet" href="shop.css?v=ux2">
   <script src="script.js" defer></script>
-  <script type="module" src="js/shop.js"></script>
+  <script type="module" src="js/shop.js?v=ux2"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>
@@ -19,9 +19,9 @@
       <a class="brand" href="#home" aria-label="Tea House — на главную"><span class="brand-symbol" aria-hidden="true">茶</span><span>TEA HOUSE<small>ДОМ ЧАЙНОЙ ЖАБЫ</small></span></a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" hidden><span class="menu-lines" aria-hidden="true"></span><span class="menu-label">Меню</span></button>
       <nav id="site-nav" class="site-nav" aria-label="Основная навигация">
-        <a href="#about">О чайной</a><a href="#tea">Наш чай</a><a href="#ceremonies">Церемонии</a><a href="#gallery">Галерея</a><a href="#contacts">Контакты</a>
+        <a href="#tea">Наш чай</a><a href="#about">О чайной</a><a href="#ceremonies">Церемонии</a><a href="#gallery">Галерея</a><a href="#contacts">Контакты</a>
         <a class="shop-nav-cart" href="#cart">Корзина (<span id="shop-cart-count">0</span>)</a>
-        <a class="nav-book" href="#contacts">Забронировать <span aria-hidden="true">↗</span></a>
+        <a class="nav-book" href="#tea">Выбрать чай <span aria-hidden="true">↗</span></a>
       </nav>
     </div>
   </header>
@@ -29,21 +29,16 @@
     <section id="home" class="hero container" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow"><span class="small-line"></span> КИТАЙСКАЯ ЧАЙНАЯ · НЯЧАНГ</p>
-        <h1 id="hero-title">Меньше спешки.<br>Больше <em>чая.</em></h1>
-        <p class="hero-description">Место, где можно замедлиться. Открыть новый вкус, почувствовать тепло чашки и просто побыть в моменте.</p>
-        <div class="hero-actions"><a class="button" href="#contacts">Забронировать столик <span aria-hidden="true">↗</span></a><a class="text-link" href="#tea">Открыть чайное меню <span aria-hidden="true">↓</span></a></div>
+        <h1 id="hero-title">Китайский чай.<br><em>В вашем ритме.</em></h1>
+        <p class="hero-description">Выберите чай для своей неспешной паузы — от 20 граммов. Знакомьтесь со вкусами, собирайте свою коллекцию и открывайте китайскую чайную культуру в Нячанге.</p>
+        <div class="hero-actions"><a class="button" href="#tea">Выбрать чай <span aria-hidden="true">↓</span></a><a class="text-link" href="#about">О чайной <span aria-hidden="true">↗</span></a></div>
         <p class="hero-footnote">Китайская чайная культура в ритме прибрежного города.<br>Демонстрационная концепция Tea House.</p>
       </div>
       <figure class="hero-visual"><img src="assets/tea-ceremony.jpg" width="1800" height="1200" alt="Пролив чая в керамическую посуду во время церемонии" fetchpriority="high"><div class="photo-seal" aria-hidden="true">一<br>期<br>一<br>会</div><figcaption><span>01 / ИСКУССТВО ЧАЙНОЙ ПАУЗЫ</span><span>Фотоиллюстрация · Pexels</span></figcaption></figure>
     </section>
-    <div class="values-strip" role="group" aria-label="Идея проекта"><div class="container"><span>Целый лист</span><span aria-hidden="true">✳</span><span>Внимание к деталям</span><span aria-hidden="true">✳</span><span>Время для себя</span><span aria-hidden="true">✳</span><span>Тёплые встречи</span></div></div>
-    <section id="about" class="section container about" aria-labelledby="about-title">
-      <figure class="about-visual"><img src="assets/tea-table.jpg" width="1400" height="1800" alt="Чайная посуда и деревянный стол в тёплом свете" loading="lazy"><figcaption>Фотоиллюстрация чайной атмосферы, не интерьер Tea House.</figcaption></figure>
-      <div class="about-copy"><p class="eyebrow">01 / О ЧАЙНОЙ</p><h2 id="about-title">Маленькая пауза.<br><em>Целый мир внутри.</em></h2><p>Мы представляем Tea House как тихое пространство в Нячанге, где китайская чайная культура встречается с лёгкостью жизни у моря.</p><p>Здесь в центре внимания — чайный лист, простая керамика и разговор без спешки. Можно прийти за первым знакомством с чаем или за своим любимым вкусом.</p><div class="about-note"><span aria-hidden="true">茶</span><p>Хорошему чаю нужны вода, внимание<br>и немного вашего времени.</p></div><small class="muted">Описание — часть демонстрационной концепции.</small></div>
-    </section>
     <section id="tea" class="section tea-section" aria-labelledby="tea-title"><div class="container">
-      <div class="section-heading"><div><p class="eyebrow">02 / ЧАЙНАЯ КОЛЛЕКЦИЯ</p><h2 id="tea-title">Найдите свой <em>вкус.</em></h2></div><p class="shop-intro">30 чаёв и травяных напитков из предоставленного прайса. Выберите чай для своей неспешной паузы.</p></div>
-      <div class="shop-notice"><strong>Демонстрационный магазин.</strong> Цены в донгах (₫, VND) взяты из предоставленного прайса; их актуальность и наличие не подтверждены. Базовая цена — за 20 г, у Саган Дайля — за 10 г. Купить в демо-корзине можно от 20 г. Фото и описания конкретных товаров пока не предоставлены. Типичные профили вида чая — ориентиры, а не подтверждённые свойства товара.</div>
+      <div class="section-heading"><div><p class="eyebrow">01 / ЧАЙНАЯ КОЛЛЕКЦИЯ</p><h2 id="tea-title">Найдите свой <em>вкус.</em></h2></div><p class="shop-intro">30 чаёв и травяных напитков из предоставленного прайса. Выберите чай для своей неспешной паузы.</p></div>
+      <div class="shop-notice"><p><strong>Демо-магазин.</strong> Цены из прайса; актуальность и наличие не подтверждены. Заказы не отправляются.</p><details id="shop-catalog-info"><summary>О ценах, фото и характеристиках</summary><p>Цены в донгах (₫, VND). Главная цена — за выбранный вес, до скидки; цена за 100 г помогает сравнить товары. Базовая цена прайса — за 20 г, у Саган Дайля — за 10 г, поэтому 20 г стоят 300 000 ₫ до скидки. Минимальный выбор для всех товаров — 20 г.</p><p>Фирменные заглушки «Демо» используются вместо отсутствующих фотографий товаров. Описания конкретных товаров не предоставлены. «Типичный профиль» — ориентир вида чая, а не подтверждённые свойства конкретного товара. Неизвестные вкус и аромат отмечены «Уточняется». Подробности и источники доступны в карточках.</p></details></div>
       <div class="shop-toolbar" role="search" aria-label="Поиск и фильтры каталога">
         <label class="shop-field" for="shop-search">Поиск по названию<input id="shop-search" class="shop-input" type="search" placeholder="Например, Лун Цзин" autocomplete="off"></label>
         <label class="shop-field" for="shop-category">Категория<select id="shop-category" class="shop-select"><option value="all">Все категории</option></select></label>
@@ -56,7 +51,7 @@
       <div id="shop-products" class="shop-products"></div>
       <p id="shop-empty-results" class="shop-empty" hidden>По вашему запросу ничего не найдено. Измените название или сбросьте фильтры.</p>
     </div></section>
-    <section id="cart" class="section container shop-cart" aria-labelledby="cart-title">
+    <section id="cart" class="section container shop-cart" aria-labelledby="cart-title" tabindex="-1">
       <div class="section-heading"><div><p class="eyebrow">ВАШ ВЫБОР</p><h2 id="cart-title" tabindex="-1">Корзина <em>для чайной паузы.</em></h2></div><p>Пока это пример заказа. Ничего не отправляется владельцу, товары не резервируются, оплата не принимается.</p></div>
       <p id="shop-storage-warning" class="shop-storage-warning" role="status" hidden></p>
       <div class="shop-cart-layout">
@@ -72,11 +67,17 @@
         </aside>
       </div>
     </section>
+    <div class="values-strip" role="group" aria-label="Идея проекта"><div class="container"><span>Целый лист</span><span aria-hidden="true">✳</span><span>Внимание к деталям</span><span aria-hidden="true">✳</span><span>Время для себя</span><span aria-hidden="true">✳</span><span>Тёплые встречи</span></div></div>
+    <section id="about" class="section container about" aria-labelledby="about-title">
+      <figure class="about-visual"><img src="assets/tea-table.jpg" width="1400" height="1800" alt="Чайная посуда и деревянный стол в тёплом свете" loading="lazy"><figcaption>Фотоиллюстрация чайной атмосферы, не интерьер Tea House.</figcaption></figure>
+      <div class="about-copy"><p class="eyebrow">02 / О ЧАЙНОЙ</p><h2 id="about-title">Маленькая пауза.<br><em>Целый мир внутри.</em></h2><p>Мы представляем Tea House как тихое пространство в Нячанге, где китайская чайная культура встречается с лёгкостью жизни у моря.</p><p>Здесь в центре внимания — чайный лист, простая керамика и разговор без спешки. Можно прийти за первым знакомством с чаем или за своим любимым вкусом.</p><div class="about-note"><span aria-hidden="true">茶</span><p>Хорошему чаю нужны вода, внимание<br>и немного вашего времени.</p></div><small class="muted">Описание — часть демонстрационной концепции.</small></div>
+    </section>
     <section id="ceremonies" class="ceremonies" aria-labelledby="ceremonies-title"><div class="container ceremony-layout"><div class="ceremony-copy"><p class="eyebrow">03 / ЧАЙНЫЕ ЦЕРЕМОНИИ</p><h2 id="ceremonies-title">Не просто выпить чай.<br><em>Прожить момент.</em></h2><p>Небольшие чашки, несколько проливов, меняющийся аромат. Знакомство с традицией гунфу ча — через вкус, внимание и неспешную беседу.</p><dl class="ceremony-details"><div><dt>Продолжительность</dt><dd>60–90 минут</dd></div><div><dt>Компания</dt><dd>2–4 гостя</dd></div><div><dt>Пример цены / гость</dt><dd>от 350 000 VND</dd></div></dl><p class="ceremony-demo">Демонстрационный формат и цены. Реальные церемонии не проводятся через этот сайт.</p><a class="button button-light" href="#contacts">Запланировать церемонию <span aria-hidden="true">↗</span></a></div><figure class="ceremony-visual"><img src="assets/pouring-tea.jpg" width="1200" height="1800" alt="Чай разливают из чайника в небольшие фарфоровые чашки" loading="lazy"><figcaption>Тематическая фотография Pexels · не съёмка Tea House</figcaption></figure></div></section>
     <section id="gallery" class="section container" aria-labelledby="gallery-title"><div class="section-heading"><div><p class="eyebrow">04 / В ДЕТАЛЯХ</p><h2 id="gallery-title">Почувствуйте <em>атмосферу.</em></h2></div><p>Фактура чайного листа. Тепло керамики. Красота простых вещей.</p></div><div class="gallery-grid"><figure><img src="assets/tea-leaves.jpg" width="1100" height="1650" alt="Сухие чайные листья крупным планом" loading="lazy"><figcaption><span>01</span> Всё начинается с листа</figcaption></figure><figure><img src="assets/porcelain.jpg" width="1000" height="667" alt="Традиционный чайник и чашки с узорами" loading="lazy"><figcaption><span>02</span> Посуда с характером</figcaption></figure><figure><img src="assets/tea-ceremony.jpg" width="1800" height="1200" alt="Деталь процесса заваривания чая в керамической посуде" loading="lazy"><figcaption><span>03</span> Искусство внимания</figcaption></figure></div><p class="gallery-disclaimer">Все изображения — тематические фотоиллюстрации из Pexels. Они не показывают реальное заведение, его сотрудников или фактический ассортимент. <a href="assets/SOURCES.md">Источники фотографий</a> · <a href="https://www.pexels.com/license/" target="_blank" rel="noopener noreferrer">Лицензия Pexels ↗</a></p></section>
     <section id="contacts" class="contacts-section" aria-labelledby="contacts-title" tabindex="-1"><div class="container contact-layout"><div><p class="eyebrow">05 / ДО ВСТРЕЧИ ЗА ЧАЕМ</p><h2 id="contacts-title">Оставьте время<br><em>для хорошего чая.</em></h2><p>Tea House · Нячанг, Вьетнам</p><span class="demo-tag">Демонстрационные контакты</span></div><div class="contact-panel"><h3>Здесь начнётся ваш визит</h3><p>Вы на демонстрационном сайте. Кнопки бронирования ведут в этот раздел: заявки не отправляются, места не резервируются.</p><dl class="contact-details"><div><dt>Адрес</dt><dd>Нячанг, Вьетнам<br><small>Точный адрес появится после согласования.</small></dd></div><div><dt>Часы работы · пример</dt><dd>Ежедневно, 10:00–22:00<br><small>Местное время Вьетнама · не реальное расписание.</small></dd></div><div><dt>Связь и бронирование</dt><dd>Контакты пока не подключены<br><small>Телефон и мессенджер добавим перед запуском.</small></dd></div></dl><p class="contact-note">Спасибо за интерес к концепции Tea House.</p></div></div></section>
   </main>
   <footer class="site-footer container"><a class="brand footer-brand" href="#home"><span class="brand-symbol" aria-hidden="true">茶</span><span>TEA HOUSE<small>ИСКУССТВО НЕ СПЕШИТЬ</small></span></a><p>Учебный демонстрационный проект.<br>Каталог — по предоставленному прайсу.<br>Оформление, скидки и сведения о чайной — демонстрационные.</p><a class="text-link" href="#home">Наверх ↑</a></footer>
+  <div id="shop-mobile-cart" class="shop-mobile-cart" hidden><a id="shop-mobile-cart-link" href="#cart"><span>Корзина · <span id="shop-mobile-cart-count">0</span> шт.</span><strong id="shop-mobile-cart-total">0 ₫</strong><span aria-hidden="true">↑</span></a></div>
   <div id="shop-announcement" class="shop-announcement" role="status" aria-live="polite" aria-atomic="true"></div>
 </body>
 </html>

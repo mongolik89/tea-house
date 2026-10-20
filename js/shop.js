@@ -47,8 +47,10 @@ function weightSelect(id, value, label) {
 function profileField(label, profile) {
   const wrapper = element('div', 'shop-profile-field');
   const title = element('dt', '', label);
-  if (profile.status === 'typical') title.append(element('span', 'shop-profile-tag', 'Типичный профиль'));
-  wrapper.append(title, element('dd', '', profile.text));
+  const value = element('dd');
+  if (profile.status === 'typical') value.append(element('span', 'shop-profile-tag', 'Типичный профиль · '));
+  value.append(document.createTextNode(profile.text));
+  wrapper.append(title, value);
   return wrapper;
 }
 
@@ -70,7 +72,7 @@ function renderProducts() {
       image.loading = 'lazy';
       visual.append(image);
     } else {
-      visual.append(emblem, element('span', 'shop-photo-caption', 'Демо · Фото товара не предоставлено'));
+      visual.append(emblem, element('span', 'shop-photo-caption', 'Демо · Без фото'));
     }
     const body = element('div', 'shop-product-body');
     const top = element('div', 'shop-product-top');
@@ -78,6 +80,9 @@ function renderProducts() {
     top.append(element('span', 'shop-category-name', categoryNames.get(product.categoryId)), number);
     const heading = element('h3', 'shop-product-title', product.name);
     heading.id = `product-title-${product.id}`;
+    const details = element('details', 'shop-product-details');
+    const summary = element('summary', '', 'Подробности');
+    summary.setAttribute('aria-label', `Подробности: ${product.name}`);
     const description = element('p', 'shop-description', product.description || 'Демо · Описание конкретного товара не предоставлено.');
     const profiles = element('dl', 'shop-profiles');
     profiles.append(profileField('Вкус', product.taste), profileField('Аромат', product.aroma));
@@ -94,6 +99,8 @@ function renderProducts() {
     const availability = element('p', 'shop-availability', product.availability === 'unknown'
       ? 'Наличие не подтверждено · Демо' : product.availability === 'out-of-stock' ? 'Нет в наличии' : 'В наличии');
     const basePrice = element('p', 'shop-base-price', `${formatMoney(product.basePriceVnd)} / ${product.baseWeightGrams} г — по прайсу`);
+    const comparison = element('p', 'shop-comparison-price', `${formatMoney(unitPrice(product, 100))} / 100 г · для сравнения`);
+    const purchase = element('div', 'shop-purchase');
     const controls = element('div', 'shop-product-controls');
     const weight = selectedWeights.get(product.id) || SHOP_CONFIG.weights[0];
     const label = element('label', 'shop-field', 'Вес');
@@ -101,7 +108,7 @@ function renderProducts() {
     const select = weightSelect(label.htmlFor, weight, `Вес: ${product.name}`);
     select.dataset.action = 'product-weight';
     label.append(select);
-    const price = element('p', 'shop-selected-price', formatMoney(unitPrice(product, weight)));
+    const price = element('p', 'shop-selected-price', `${formatMoney(unitPrice(product, weight))} / ${weight} г`);
     price.id = `product-price-${product.id}`;
     select.setAttribute('aria-describedby', price.id);
     controls.append(label, price);
@@ -110,7 +117,9 @@ function renderProducts() {
     add.dataset.action = 'add';
     add.disabled = product.availability === 'out-of-stock';
     add.setAttribute('aria-label', `Добавить в корзину: ${product.name}`);
-    body.append(top, heading, description, profiles, profileNote, availability, basePrice, controls, add);
+    details.append(summary, description, availability, basePrice, profileNote);
+    purchase.append(controls, comparison, add);
+    body.append(top, heading, profiles, purchase, details);
     card.append(visual, body);
     fragment.append(card);
   }
@@ -172,6 +181,11 @@ function renderCart() {
   $('#shop-discount').textContent = `−${formatMoney(cart.discountVnd)}`;
   $('#shop-total').textContent = formatMoney(cart.totalVnd);
   $('#shop-order-text').value = formatOrder(items);
+  $('#shop-mobile-cart').hidden = cart.quantity === 0;
+  $('#shop-mobile-cart-count').textContent = String(cart.quantity);
+  $('#shop-mobile-cart-total').textContent = formatMoney(cart.totalVnd);
+  $('#shop-mobile-cart-link').setAttribute('aria-label', `Перейти в корзину: ${cart.quantity} шт., ${formatMoney(cart.totalVnd)} с учётом демо-скидки`);
+  document.documentElement.classList.toggle('has-mobile-cart', cart.quantity > 0);
 }
 
 function commitCart(next, message) {
@@ -197,7 +211,7 @@ $('#shop-products').addEventListener('change', (event) => {
   const weight = Number(select.value);
   selectedWeights.set(product.id, weight);
   const price = formatMoney(unitPrice(product, weight));
-  $('.shop-selected-price', card).textContent = price;
+  $('.shop-selected-price', card).textContent = `${price} / ${weight} г`;
   announce(`${product.name}: ${weight} г, ${price} до скидки.`);
 });
 
@@ -266,6 +280,23 @@ $('#shop-copy').addEventListener('click', async () => {
   }
 });
 
+// Резервируем место под фактическую высоту панели, в том числе при переносе суммы.
+const mobileCart = $('#shop-mobile-cart');
+function syncMobileCartSpace() {
+  const height = mobileCart.getBoundingClientRect().height;
+  document.documentElement.style.setProperty('--mobile-cart-space', `${height > 0 ? Math.ceil(height) + 16 : 100}px`);
+}
+if ('ResizeObserver' in window) new ResizeObserver(syncMobileCartSpace).observe(mobileCart);
+window.addEventListener('resize', syncMobileCartSpace);
+document.addEventListener('focusin', (event) => {
+  if (!(event.target instanceof HTMLElement) || !event.target.matches('a, button, input, select, textarea, summary')
+    || mobileCart.hidden || mobileCart.contains(event.target)
+    || !window.matchMedia('(max-width: 900px)').matches) return;
+  const bounds = event.target.getBoundingClientRect();
+  if (bounds.bottom > mobileCart.getBoundingClientRect().top - 16) {
+    event.target.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  }
+});
 for (const category of CATEGORIES) {
   const option = element('option', '', category.name);
   option.value = category.id;
