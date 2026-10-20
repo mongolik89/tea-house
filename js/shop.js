@@ -19,9 +19,19 @@ function announce(message) {
   const status = $('#shop-announcement');
   clearTimeout(announcementTimer);
   clearTimeout(dismissTimer);
+  document.querySelectorAll('.shop-inline-feedback').forEach((node) => node.remove());
   status.textContent = '';
+  const context = document.activeElement?.closest('.shop-product-body, .shop-cart-row, .shop-summary');
+  if (message && context) {
+    const feedback = element('p', 'shop-inline-feedback', message);
+    feedback.setAttribute('aria-hidden', 'true');
+    context.append(feedback);
+  }
   announcementTimer = setTimeout(() => { status.textContent = message; }, 30);
-  dismissTimer = setTimeout(() => { status.textContent = ''; }, 6500);
+  dismissTimer = setTimeout(() => {
+    status.textContent = '';
+    document.querySelectorAll('.shop-inline-feedback').forEach((node) => node.remove());
+  }, 6500);
 }
 
 function element(tag, className, text) {
@@ -52,6 +62,13 @@ function profileField(label, profile) {
   value.append(document.createTextNode(profile.text));
   wrapper.append(title, value);
   return wrapper;
+}
+
+function renderSelectedPrice(node, product, weight) {
+  node.replaceChildren(
+    element('span', 'shop-price-amount', formatMoney(unitPrice(product, weight))),
+    element('span', 'shop-price-weight', `/ ${weight} г`),
+  );
 }
 
 function renderProducts() {
@@ -85,7 +102,10 @@ function renderProducts() {
     summary.setAttribute('aria-label', `Подробности: ${product.name}`);
     const description = element('p', 'shop-description', product.description || 'Демо · Описание конкретного товара не предоставлено.');
     const profiles = element('dl', 'shop-profiles');
-    profiles.append(profileField('Вкус', product.taste), profileField('Аромат', product.aroma));
+    const unknownProfiles = element('dl', 'shop-profiles');
+    for (const [label, profile] of [['Вкус', product.taste], ['Аромат', product.aroma]]) {
+      (profile.status === 'unknown' ? unknownProfiles : profiles).append(profileField(label, profile));
+    }
     const profileNote = element('p', 'shop-profile-note');
     const typicalProfiles = [product.taste, product.aroma].filter((profile) => profile.status === 'typical');
     if (typicalProfiles.length) {
@@ -108,7 +128,8 @@ function renderProducts() {
     const select = weightSelect(label.htmlFor, weight, `Вес: ${product.name}`);
     select.dataset.action = 'product-weight';
     label.append(select);
-    const price = element('p', 'shop-selected-price', `${formatMoney(unitPrice(product, weight))} / ${weight} г`);
+    const price = element('p', 'shop-selected-price');
+    renderSelectedPrice(price, product, weight);
     price.id = `product-price-${product.id}`;
     select.setAttribute('aria-describedby', price.id);
     controls.append(label, price);
@@ -117,18 +138,26 @@ function renderProducts() {
     add.dataset.action = 'add';
     add.disabled = product.availability === 'out-of-stock';
     add.setAttribute('aria-label', `Добавить в корзину: ${product.name}`);
-    details.append(summary, description, availability, basePrice, profileNote);
+    details.append(summary, description);
+    if (unknownProfiles.children.length) details.append(unknownProfiles);
+    details.append(availability, basePrice, profileNote);
     purchase.append(controls, comparison, add);
-    body.append(top, heading, profiles, purchase, details);
+    body.append(top, heading);
+    if (profiles.children.length) body.append(profiles);
+    body.append(purchase, details);
     card.append(visual, body);
     fragment.append(card);
   }
   $('#shop-products').replaceChildren(fragment);
+  const activeFilters = Number($('#shop-category').value !== 'all') + Number($('#shop-sort').value !== 'default');
+  $('#shop-filter-state').textContent = activeFilters ? ` · активно: ${activeFilters}` : '';
   $('#shop-results').textContent = `Найдено: ${products.length} из ${PRODUCTS.length}`;
   $('#shop-empty-results').hidden = products.length > 0;
 }
 
 function renderCart() {
+  $('#shop-copy-next-step').hidden = true;
+  $('#shop-copy-next-step').textContent = '';
   const cart = calculateCart(items);
   $('#shop-cart-count').textContent = String(cart.quantity);
   $('#shop-cart-count').closest('a').setAttribute('aria-label', `Корзина: ${cart.quantity} единиц`);
@@ -211,7 +240,7 @@ $('#shop-products').addEventListener('change', (event) => {
   const weight = Number(select.value);
   selectedWeights.set(product.id, weight);
   const price = formatMoney(unitPrice(product, weight));
-  $('.shop-selected-price', card).textContent = `${price} / ${weight} г`;
+  renderSelectedPrice($('.shop-selected-price', card), product, weight);
   announce(`${product.name}: ${weight} г, ${price} до скидки.`);
 });
 
@@ -270,7 +299,10 @@ $('#shop-copy').addEventListener('click', async () => {
   try {
     if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
     await navigator.clipboard.writeText(text);
-    announce('Заказ скопирован. Ничего не отправлено владельцу.');
+    announce('');
+    const nextStep = $('#shop-copy-next-step');
+    nextStep.hidden = false;
+    nextStep.textContent = 'Заказ скопирован. Откройте Telegram, вставьте заказ и отправьте продавцу.';
   } catch {
     $('#shop-order-preview').open = true;
     const preview = $('#shop-order-text');
