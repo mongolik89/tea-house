@@ -1,5 +1,5 @@
 import { PRODUCTS } from '../data/products.js';
-import { SHOP_CONFIG } from '../data/shop-config.js';
+import { SHOP_CONFIG } from '../data/shop-config.js?v=brand-1';
 
 const byId = new Map(PRODUCTS.map((product) => [product.id, product]));
 export const itemKey = (item) => `${item.productId}:${item.weightGrams}`;

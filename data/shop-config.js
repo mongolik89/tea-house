@@ -1,6 +1,6 @@
 // Только настройки демонстрации. Это не подтверждённые условия продажи.
 export const SHOP_CONFIG = Object.freeze({
-  name: 'Дом Чайной Жабы',
+  name: 'Дом чайной жабы',
   currency: 'VND',
   weights: Object.freeze([20, 50, 100, 200]),
   maxQuantity: 99,

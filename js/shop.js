@@ -1,7 +1,7 @@
 import { PRODUCTS, CATEGORIES } from '../data/products.js';
-import { SHOP_CONFIG } from '../data/shop-config.js';
+import { SHOP_CONFIG } from '../data/shop-config.js?v=brand-1';
 import { addItem, updateItem, removeItem, calculateCart, formatOrder, formatMoney,
-  itemKey, loadCart, saveCart, selectProducts, unitPrice } from './cart.js';
+  itemKey, loadCart, saveCart, selectProducts, unitPrice } from './cart.js?v=brand-1';
 
 const $ = (selector, parent = document) => parent.querySelector(selector);
 const categoryNames = new Map(CATEGORIES.map((category) => [category.id, category.name]));
