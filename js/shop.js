@@ -277,7 +277,6 @@ if (SHOP_CONFIG.telegramChannelUrl) {
     && /^\/(?:s\/)?[a-z][a-z0-9_]{3,}\/?$/i.test(url.pathname) && url.pathname !== '/share') {
     $('#shop-telegram').href = url.href;
     $('#shop-telegram').hidden = false;
-    $('#shop-telegram-note').hidden = true;
   }
 }
 renderProducts();

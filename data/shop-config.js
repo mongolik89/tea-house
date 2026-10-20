@@ -6,7 +6,7 @@ export const SHOP_CONFIG = Object.freeze({
   maxQuantity: 99,
   storageKey: 'tea-house-demo-cart-v1',
   storageVersion: 1,
-  telegramChannelUrl: null,
+  telegramChannelUrl: 'https://t.me/nhatrang_tea',
   discountTiers: Object.freeze([
     Object.freeze({ minimumGrams: 100, percent: 10 }),
     Object.freeze({ minimumGrams: 50, percent: 5 }),
