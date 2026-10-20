@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#203c32">
   <title>Дом Чайной Жабы · Tea House — демонстрационный магазин</title>
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="shop.css?v=mobile-flow-2">
+  <link rel="stylesheet" href="shop.css?v=ux-guide-1">
   <script src="script.js" defer></script>
   <script type="module" src="js/shop.js?v=mobile-flow-2"></script>
 </head>
@@ -47,7 +47,27 @@
           <button id="shop-reset" class="shop-reset" type="button">Сбросить фильтры</button>
         </div></details>
       </div>
-      <p id="shop-results" class="shop-results" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div class="shop-catalog-meta">
+        <p id="shop-results" class="shop-results" role="status" aria-live="polite" aria-atomic="true"></p>
+        <details id="shop-tea-guide" class="shop-guide">
+          <summary>Как выбрать чай</summary>
+          <div class="shop-guide-content">
+            <p>Начните с того, какой вкус вам ближе. Это общие ориентиры по категориям, а не описание конкретных товаров: вкус зависит от чая и заваривания.</p>
+            <dl class="shop-guide-categories">
+              <div><dt>Зелёный</dt><dd>Часто лёгкий, со свежим травянистым вкусом.</dd></div>
+              <div><dt>Белый</dt><dd>Вкус бывает от фруктово-травянистого до пряного и древесного.</dd></div>
+              <div><dt>Улун</dt><dd>Очень разные чаи: вкус сильно зависит от обработки. Уточните описание выбранного чая.</dd></div>
+              <div><dt>Красный</dt><dd>Знакомый многим «чёрный чай». Часто насыщенный, но вкус у разных чаёв различается.</dd></div>
+              <div><dt>Шен пуэр</dt><dd>Вкус меняется с выдержкой и хранением. Молодой и выдержанный чай могут сильно отличаться.</dd></div>
+              <div><dt>Шу пуэр</dt><dd>Обычно мягкий, с землистым вкусом. Для знакомства с таким характером чая.</dd></div>
+              <div><dt>ГАБА</dt><dd>Название связано со способом обработки, а не с одним вкусом. Уточните вкус конкретного чая.</dd></div>
+              <div><dt>Травяные напитки</dt><dd>Настои других растений, а не чайного листа. Вкус зависит от состава.</dd></div>
+            </dl>
+            <p>Для первого знакомства можно выбрать 20 г. Если описания товара нет, уточните его у продавца.</p>
+            <p class="shop-guide-sources">Подробнее: <a href="https://www.teasource.com/pages/types-of-tea" target="_blank" rel="noopener noreferrer">виды чая</a>, <a href="https://www.teasource.com/pages/about-black-tea" target="_blank" rel="noopener noreferrer">красный и «чёрный» чай</a>, <a href="https://www.sciencedirect.com/science/article/pii/S0023643820303029" target="_blank" rel="noopener noreferrer">обработка ГАБА</a>.</p>
+          </div>
+        </details>
+      </div>
       <p id="shop-loading" class="shop-empty">Каталог загружается. Если он не появился, проверьте, включён ли JavaScript, и откройте сайт через локальный сервер.</p>
       <noscript><p class="shop-empty">Каталогу и корзине нужен JavaScript. Остальные разделы доступны ниже.</p></noscript>
       <div id="shop-products" class="shop-products"></div>
